@@ -172,18 +172,16 @@ This resulted in the following source and destination points:
 | 678, 443      | 1024, 0        |
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
-
 <table style="width:100%">
   <tr>
     <th>
       <p align="center">
-           <img src="./output_images/perspective_transform.png" alt="Perspective Transform" width="100" height="100%">
+           <img src="./output_images/perspective_transform.png" alt="Perspective Transform" width="100%" height="100%">
            <br>Perspective Transform
       </p>
     </th>
   </tr>
 </table>
-
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
