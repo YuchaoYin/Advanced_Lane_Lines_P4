@@ -199,7 +199,7 @@ Since a threshold warped image is provided, we can use it to detect lane-line pi
   <tr>
     <th>
       <p align="center">
-           <img src="./output_images/histogram.png" alt="Histogram" width="100%" height="100%">
+           <img src="./output_images/histogram.png" alt="Histogram" width="100%" height="50%">
            <br>Histogram
       </p>
     </th>
