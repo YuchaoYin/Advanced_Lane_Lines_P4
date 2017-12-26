@@ -71,9 +71,20 @@ After camera calibration, some test images could be used for experiment. The fol
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+The code can be found in [image_binarization.py](image_binarization.py)
 
-![alt text][image3]
+The sobel operator is applied to calculate the gradient in the x or the y direction. The following figures show the original image and after gradient taken in x direction.
+
+<table style="width:100%">
+  <tr>
+    <th>
+      <p align="center">
+           <img src="./output_images/x_gradient.png" alt="The binary image using X-gradient" width="100%" height="100%">
+           <br>The binary image using X-gradient
+      </p>
+    </th>
+  </tr>
+</table>
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
