@@ -8,13 +8,13 @@ from image_binarization import get_binary_image
 import collections
 
 class Line():
-    def __init__(self, buffer_len=10):
+    def __init__(self, buffer=10):
         self.detected = False
         self.current_fit_pixel = None
         self.current_fit_meter = None
         self.radius_of_curvature = None
-        self.recent_fits_pixel = collections.deque(maxlen=buffer_len)
-        self.recent_fits_meter = collections.deque(maxlen=2 * buffer_len)
+        self.recent_fits_pixel = collections.deque(maxlen=buffer)
+        self.recent_fits_meter = collections.deque(maxlen=2 * buffer)
         # x values for detected line pixels
         self.allx = None
         # y values for detected line pixels
@@ -283,8 +283,8 @@ def project_on_to_original_image(undist, binary_warped, Minv, line_left, line_ri
     return result
 
 if __name__ == '__main__':
-    line_left = Line(buffer_len=10)
-    line_right = Line(buffer_len=10)
+    line_left = Line(buffer=10)
+    line_right = Line(buffer=10)
     cali_path = '/home/yuchao/CarND-Advanced-Lane-Lines/camera_cal'
     pickle_file = '/home/yuchao/CarND-Advanced-Lane-Lines/pick'
     img = mpimg.imread('/home/yuchao/CarND-Advanced-Lane-Lines/test_images/test2.jpg')

@@ -9,8 +9,8 @@ import numpy as np
 import cv2
 
 counter = 0 # counter of processed frames
-line_left = Line(buffer_len=9)  # line on the left of the lane
-line_right = Line(buffer_len=9) # line on the right of the lane
+line_left = Line(buffer=10)
+line_right = Line(buffer=10)
 def pipline(frame):
     global line_left, line_right, counter
 
