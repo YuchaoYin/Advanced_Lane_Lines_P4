@@ -187,10 +187,25 @@ I verified that my perspective transform was working as expected by drawing the 
 
 The code for lane-line finding can be found in [line_find.py](line_find.py)
 Since a threshold warped image is provided, we can use it to detect lane-line pixels.
+<table style="width:100%">
+  <tr>
+    <th>
+      <p align="center">
+           <img src="./output_images/warped_binary.png" alt="Warped Binary Image" width="100%" height="100%">
+           <br>Warped Binary Image
+      </p>
+    </th>
+  </tr>
+  <tr>
+    <th>
+      <p align="center">
+           <img src="./output_images/histogram.png" alt="Histogram" width="100%" height="100%">
+           <br>Histogram
+      </p>
+    </th>
+  </tr>
+</table>
 
-
-
-![alt text][image5]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
