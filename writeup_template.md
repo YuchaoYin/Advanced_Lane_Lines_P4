@@ -177,7 +177,7 @@ I verified that my perspective transform was working as expected by drawing the 
   <tr>
     <th>
       <p align="center">
-           <img src="./output_images/perspective_transform.png" alt="Perspective Transform" width="100" height="100%"
+           <img src="./output_images/perspective_transform.png" alt="Perspective Transform" width="100" height="100%">
            <br>Perspective Transform
       </p>
     </th>
