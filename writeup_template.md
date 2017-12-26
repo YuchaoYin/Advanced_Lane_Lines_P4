@@ -50,9 +50,24 @@ Note: The code can be found in [camera_calibration.py](camera_calibration.py)
 ### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
+After camera calibration, some test images could be used for experiment. The following images show the original test image and the image after calibration and undistortion.
 
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text][image2]
+<table style="width:100%">
+  <tr>
+    <th>
+      <p align="center">
+           <img src="./output_images/test2.jpg" alt="Original Test Image" width="60%" height="60%">
+           <br>Original Test Image
+      </p>
+    </th>
+    <th>
+      <p align="center">
+           <img src="./output_images/Undistorted_test_image.png" alt="Undistorted Test Image" width="60%" height="60%">
+           <br>Undistorted Test Image
+      </p>
+    </th>
+  </tr>
+</table>
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
