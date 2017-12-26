@@ -86,6 +86,53 @@ The sobel operator is applied to calculate the gradient in the x or the y direct
   </tr>
 </table>
 
+However, the yellow lane cannot be detected successfully. 
+Then I tried to convert the image HLS color space.
+
+<table style="width:100%">
+  <tr>
+    <th>
+      <p align="center">
+           <img src="./output_images/H_image.png" alt="H" width="100%" height="100%">
+           <br>H
+      </p>
+    </th>
+    <th>
+      <p align="center">
+           <img src="./output_images/L_image.png" alt="L" width="100%" height="100%">
+           <br>L
+      </p>
+    </th>
+    <th>
+      <p align="center">
+           <img src="./output_images/S_image.png" alt="S" width="100%" height="100%">
+           <br>S
+      </p>
+    </th>
+  </tr>
+</table>
+
+Then a threshold is applied on the S channel. And finally combine the S channel and gradient(x direction) thresholding.
+
+
+<table style="width:100%">
+  <tr>
+    <th>
+      <p align="center">
+           <img src="./output_images/S_binary.png" alt="S_binary" width="100%" height="100%">
+           <br>S_binary
+      </p>
+    </th>
+    <th>
+      <p align="center">
+           <img src="./output_images/S_binary_gradx_combined.png" alt="Combined Result" width="100%" height="100%">
+           <br>Combined Result
+      </p>
+    </th>
+  </tr>
+</table>
+
+
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
 The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
