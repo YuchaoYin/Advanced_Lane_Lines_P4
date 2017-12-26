@@ -56,13 +56,13 @@ After camera calibration, some test images could be used for experiment. The fol
   <tr>
     <th>
       <p align="center">
-           <img src="./output_images/test2.png" alt="Original Test Image" width="60%" height="60%">
+           <img src="./output_images/test_image.png" alt="Original Test Image" width="60%" height="60%">
            <br>Original Test Image
       </p>
     </th>
     <th>
       <p align="center">
-           <img src="./output_images/Undistorted_test_image.png" alt="Undistorted Test Image" width="60%" height="60%">
+           <img src="./output_images/undistorted_test_image.png" alt="Undistorted Test Image" width="60%" height="60%">
            <br>Undistorted Test Image
       </p>
     </th>
