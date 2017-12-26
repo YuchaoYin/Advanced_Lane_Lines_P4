@@ -34,7 +34,7 @@ Note: The code can be found in [camera_calibration.py](camera_calibration.py)
   <tr>
     <th>
       <p align="center">
-           <img src="./output_images/original_image.png" alt="Original Chessboard" width="60%" height="60%">
+           <img src="./output_images/original_image.jpg" alt="Original Chessboard" width="60%" height="60%">
            <br>Original Chessboard
       </p>
     </th>
