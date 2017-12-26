@@ -199,24 +199,69 @@ Since a threshold warped image is provided, we can use it to detect lane-line pi
   <tr>
     <th>
       <p align="center">
-           <img src="./output_images/histogram.png" alt="Histogram" width="100%" height="50%">
+           <img src="./output_images/histogram.png" alt="Histogram" width="100%" height="100%">
            <br>Histogram
       </p>
     </th>
   </tr>
 </table>
 
+As shown above, a histogram is taken along all the columns in the lower half of the image. The most prominent peaks in this histogram will be good indicators of the X-position of the base of the lane lines.
 
+Then implement sliding windows search method to detect lane-lines. The result is like this:
+<table style="width:100%">
+  <tr>
+    <th>
+      <p align="center">
+           <img src="./output_images/sliding_windows.png" alt="Sliding Windows Search" width="100%" height="100%">
+           <br>Sliding Windows Search
+      </p>
+    </th>
+  </tr>
+</table>
+
+If we have detected the lane-lines from the previous frame, then we can skip this step and search in a margin around the previous line position. More details in [line_find.py](line_find.py)
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+I calculate the the radius of curvature and the vehicle position offset as follows:
+```
+def curvature(line_left, line_right, frame):
+    y_eval = frame.shape[0]/2
+    [A_left, B_left,_] = np.mean(line_left.recent_fits_meter, axis=0)
+    R_left = ((1 + (2 * A_left * y_eval + B_left) ** 2) ** 1.5) / np.absolute(2 * A_left)
+    [A_right, B_right,_] = np.mean(line_right.recent_fits_meter, axis=0)
+    R_right = ((1 + (2 * A_right * y_eval + B_right) ** 2) ** 1.5) / np.absolute(2 * A_right)
+    R_mean = np.mean([R_left, R_right])
+    return R_left, R_right, R_mean
 
-I did this in lines # through # in my code in `my_other_file.py`
+def vehicle_position(line_left, line_right, frame):
+    w = frame.shape[1]
+    # calculate the distance between two lines
+    if line_right.detected and line_left.detected:
+        left_bottom = np.mean(line_left.all_x[line_left.all_y > 0.95 * line_left.all_y.max()])
+        right_bottom = np.mean(line_right.all_x[line_right.all_y > 0.95 * line_right.all_y.max()])
+        width = right_bottom - left_bottom
+        position_offset = left_bottom + width/2 - frame.shape[1]/2
+        position_offset *= 3.7/700.
+
+    return position_offset
+
+```
+Note: the output should be in meter.
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+Finally project the final result onto the road.
 
-![alt text][image6]
-
+<table style="width:100%">
+  <tr>
+    <th>
+      <p align="center">
+           <img src="./output_images/original(undistorted)image_with_lane_area_drawn.png" alt="Original(undistorted) Image with Lane Area drawn" width="100%" height="100%">
+           <br>Original(undistorted) Image with Lane Area drawn
+      </p>
+    </th>
+  </tr>
+</table>
 ---
 
 ### Pipeline (video)
