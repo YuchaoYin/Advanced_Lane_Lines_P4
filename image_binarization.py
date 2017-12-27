@@ -60,6 +60,22 @@ def color_threshold(img, thresh):
 
     return S_binary
 
+def yellow_threshold(img, thresh):
+    lab = cv2.cvtColor(img, cv2.COLOR_RGB2LAB)
+    b = lab[:,:,2]
+    b_binary = np.zeros_like(b)
+    b_binary[(b > thresh[0]) & (b <= thresh[1])] = 1
+
+    return  b_binary
+
+def white_threshold(img, thresh):
+    luv = cv2.cvtColor(img, cv2.COLOR_RGB2LUV)
+    l = luv[:,:,0]
+    l_binary = np.zeros_like(l)
+    l_binary[(l > thresh[0]) & (l <= thresh[1])] = 1
+
+    return l_binary
+
 def morphology(img, ksize):
     kernel = np.ones(ksize, np.uint8)
     closing = cv2.morphologyEx(img.astype(np.uint8), cv2.MORPH_CLOSE, kernel)
@@ -73,16 +89,19 @@ def get_binary_image(img, ksize, verbose=False):
     mag_binary = mag_thresh(img, sobel_kernel=ksize, mag_thresh=(30, 100))
     dir_binary = dir_threshold(img, sobel_kernel=ksize, thresh=(0.7, 1.3))
     S_binary = color_threshold(img, thresh=(170, 255))
+    b_binary = yellow_threshold(img, thresh=(155, 200))
+    l_binary = white_threshold(img, thresh=(225, 255))
     # Combine thresholds
     combined = np.zeros_like(dir_binary)
-    combined = np.logical_or(gradx, S_binary)
+    #combined = np.logical_or(gradx, S_binary)
+    combined = np.logical_or(b_binary, l_binary)
 
     # Apply morphology
-    combined = morphology(combined, ksize=(3,3))
+    combined = morphology(combined, ksize=(5,5))
 
     if verbose == True:
         plt.imshow(combined, cmap='gray')
-        plt.title('S_binary_gradx_morpho_combined')
+        plt.title('B_binary_L_binary_combined')
         plt.show()
 
     return combined
@@ -91,6 +110,6 @@ def get_binary_image(img, ksize, verbose=False):
 
 if __name__ == '__main__':
 
-    img = mpimg.imread('/home/yuchao/CarND-Advanced-Lane-Lines/test_images/test6.jpg')
+    img = mpimg.imread('../CarND-Advanced-Lane-Lines/test_images/test4.jpg')
     ksize = 3
     binary_image = get_binary_image(img, ksize, verbose=True)

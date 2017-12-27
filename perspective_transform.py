@@ -10,10 +10,10 @@ def perspective(img, verbose=False):
 
     h, w = img.shape[:2]
 
-    src = np.float32([[1065, 684],
-                      [255, 684],
-                      [603, 443],
-                      [678, 443]])
+    src = np.float32([[1075, 684],
+                      [200, 684],
+                      [570, 460],
+                      [710, 460]])
     dst = np.float32([[w*4/5, h],
                       [w/5, h],
                       [w/5, 0],
@@ -26,9 +26,9 @@ def perspective(img, verbose=False):
     if verbose == True:
         f, (ax1, ax2) = plt.subplots(1, 2, figsize=(24, 9))
         f.tight_layout()
-        ax1.imshow(img)
+        ax1.imshow(img, cmap='gray')
         ax1.set_title('Original Image', fontsize=50)
-        ax2.imshow(warped)
+        ax2.imshow(warped, cmap='gray')
         ax2.set_title('Warped Result', fontsize=50)
         plt.subplots_adjust(left=0., right=1, top=0.9, bottom=0.)
         plt.show()
@@ -36,9 +36,9 @@ def perspective(img, verbose=False):
     return warped, M, Minv
 
 if __name__ == '__main__':
-    cali_path = '/home/yuchao/CarND-Advanced-Lane-Lines/camera_cal'
-    pickle_file = '/home/yuchao/CarND-Advanced-Lane-Lines/pick'
-    img = mpimg.imread('/home/yuchao/CarND-Advanced-Lane-Lines/test_images/straight_lines1.jpg')
+    cali_path = '../CarND-Advanced-Lane-Lines/camera_cal'
+    pickle_file = '../CarND-Advanced-Lane-Lines/pick'
+    img = mpimg.imread('../CarND-Advanced-Lane-Lines/test_images/straight_lines1.jpg')
     #plt.imshow(img)
     #plt.show()
     ret, mtx, dist, rvecs, tvecs = calibration(img, pickle_file, cali_path, verbose=False)

@@ -9,8 +9,8 @@ import numpy as np
 import cv2
 
 counter = 0 # counter of processed frames
-line_left = Line(buffer=10)
-line_right = Line(buffer=10)
+line_left = Line(buffer_len=9)  # line on the left of the lane
+line_right = Line(buffer_len=9) # line on the right of the lane
 def pipline(frame):
     global line_left, line_right, counter
 
@@ -29,21 +29,24 @@ def pipline(frame):
     # add curvature
     R_left, R_right, R_mean = curvature(line_left, line_right, draw)
     cv2.putText(draw, 'Radius of Curvature: {:.02f}(m)'.format(R_mean), (100, 60)
-                , cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 255, 255), 2, cv2.LINE_AA)
+                , cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 255, 255), 2)
     # add position offset
     position_offset = vehicle_position(line_left, line_right, draw)
     cv2.putText(draw, 'Vehicle position offset from center: {:.02f}(m)'.format(position_offset), (100, 120)
-                , cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 255, 255), 2, cv2.LINE_AA)
+                , cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 255, 255), 2)
     counter += 1
     return draw
 
 def curvature(line_left, line_right, frame):
-    y_eval = frame.shape[0]/2
+    ym_per_pix = 30. / 720.  # meters per pixel in y dimension
+    xm_per_pix = 3.7 / 700.  # meters per pixel in x dimension
+    y_eval = frame.shape[0]/2 * ym_per_pix
     [A_left, B_left,_] = np.mean(line_left.recent_fits_meter, axis=0)
     R_left = ((1 + (2 * A_left * y_eval + B_left) ** 2) ** 1.5) / np.absolute(2 * A_left)
     [A_right, B_right,_] = np.mean(line_right.recent_fits_meter, axis=0)
     R_right = ((1 + (2 * A_right * y_eval + B_right) ** 2) ** 1.5) / np.absolute(2 * A_right)
     R_mean = np.mean([R_left, R_right])
+
     return R_left, R_right, R_mean
 
 def vehicle_position(line_left, line_right, frame):
@@ -61,15 +64,15 @@ def vehicle_position(line_left, line_right, frame):
 
 
 if __name__ == '__main__':
-    cali_path = '/home/yuchao/CarND-Advanced-Lane-Lines/camera_cal'
-    pickle_file = '/home/yuchao/CarND-Advanced-Lane-Lines/pick'
-    img_cal = mpimg.imread('/home/yuchao/CarND-Advanced-Lane-Lines/camera_cal/calibration2.jpg')
+    cali_path = '../CarND-Advanced-Lane-Lines/camera_cal'
+    pickle_file = '../CarND-Advanced-Lane-Lines/pick'
+    img_cal = mpimg.imread('../CarND-Advanced-Lane-Lines/camera_cal/calibration2.jpg')
     ret, mtx, dist, rvecs, tvecs = calibration(img_cal, pickle_file, cali_path, verbose=False)
     #img = mpimg.imread('/home/yiy6szh/CarND-Advanced-Lane-Lines/test_images/test2.jpg')
     #dst = undistort(img, mtx, dist, verbose=True)
 
-    video = '/home/yuchao/CarND-Advanced-Lane-Lines/project_video.mp4'
+    video = '../CarND-Advanced-Lane-Lines/project_video.mp4'
     clip = VideoFileClip(video)
     clip1 = clip.fl_image(pipline)
-    out_video = '/home/yuchao/CarND-Advanced-Lane-Lines/out_video.mp4'
+    out_video = '../CarND-Advanced-Lane-Lines/out_video.mp4'
     clip1.write_videofile(out_video, audio=False)

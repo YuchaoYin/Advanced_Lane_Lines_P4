@@ -8,13 +8,13 @@ from image_binarization import get_binary_image
 import collections
 
 class Line():
-    def __init__(self, buffer=10):
+    def __init__(self, buffer_len=10):
         self.detected = False
         self.current_fit_pixel = None
         self.current_fit_meter = None
         self.radius_of_curvature = None
-        self.recent_fits_pixel = collections.deque(maxlen=buffer)
-        self.recent_fits_meter = collections.deque(maxlen=2 * buffer)
+        self.recent_fits_pixel = collections.deque(maxlen=buffer_len)
+        self.recent_fits_meter = collections.deque(maxlen=2 * buffer_len)
         # x values for detected line pixels
         self.allx = None
         # y values for detected line pixels
@@ -50,6 +50,10 @@ def sliding_window_search(binary_warped, line_left, line_right, verbose=False):
     # Assuming you have created a warped binary image called "binary_warped"
     # Take a histogram of the bottom half of the image
     histogram = np.sum(binary_warped[np.int(h/2):,:], axis=0)
+    #plt.plot(histogram)
+    #plt.xlim(0,1280)
+    #plt.ylim(0, 300)
+    #plt.show()
     # Create an output image to draw on and  visualize the result
     out_img = np.dstack((binary_warped, binary_warped, binary_warped))*255
     # Find the peak of the left and right halves of the histogram
@@ -283,11 +287,11 @@ def project_on_to_original_image(undist, binary_warped, Minv, line_left, line_ri
     return result
 
 if __name__ == '__main__':
-    line_left = Line(buffer=10)
-    line_right = Line(buffer=10)
-    cali_path = '/home/yuchao/CarND-Advanced-Lane-Lines/camera_cal'
-    pickle_file = '/home/yuchao/CarND-Advanced-Lane-Lines/pick'
-    img = mpimg.imread('/home/yuchao/CarND-Advanced-Lane-Lines/test_images/test2.jpg')
+    line_left = Line(buffer_len=10)
+    line_right = Line(buffer_len=10)
+    cali_path = '../CarND-Advanced-Lane-Lines/camera_cal'
+    pickle_file = '../CarND-Advanced-Lane-Lines/pick'
+    img = mpimg.imread('../CarND-Advanced-Lane-Lines/test_images/test2.jpg')
     ret, mtx, dist, rvecs, tvecs = calibration(img, pickle_file, cali_path, verbose=False)
     dst = undistort(img, mtx, dist, verbose=False)
     binary_image = get_binary_image(dst, ksize=3, verbose=False)

@@ -61,16 +61,19 @@ def undistort(img, mtx, dist, verbose=False):
         plt.imshow(dst)
         plt.title('Undistorted Image')
         plt.show()
+        cv2.imwrite('/home/yiy6szh/CarND-Advanced-Lane-Lines/output_images/undistorted_test_image.jpg', dst)
 
     return dst
 
 if __name__ == '__main__':
-    cali_path = '/home/yuchao/CarND-Advanced-Lane-Lines/camera_cal'
-    pickle_file = '/home/yuchao/CarND-Advanced-Lane-Lines/pick'
-    img = mpimg.imread('/home/yuchao/CarND-Advanced-Lane-Lines/camera_cal/calibration2.jpg')
+    cali_path = '/home/yiy6szh/CarND-Advanced-Lane-Lines/camera_cal'
+    pickle_file = '/home/yiy6szh/CarND-Advanced-Lane-Lines/pick'
+    img = mpimg.imread('/home/yiy6szh/CarND-Advanced-Lane-Lines/test_images/test2.jpg')
+    plt.imshow(img)
+    plt.show()
     ret, mtx, dist, rvecs, tvecs = calibration(img, pickle_file, cali_path, verbose=False)
     dst = undistort(img, mtx, dist, verbose=True)
     #cv2.imwrite('/home/yuchao/CarND-Advanced-Lane-Lines/output_images/original_image.jpg', img)
-    #cv2.imwrite('/home/yuchao/CarND-Advanced-Lane-Lines/output_images/undistorted_image.jpg', dst)
+    #cv2.imwrite('/home/yiy6szh/CarND-Advanced-Lane-Lines/output_images/undistorted_test_image.jpg', dst)
 
 

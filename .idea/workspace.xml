@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="148875e5-f7fe-433d-a51f-5eca08e2931e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/line_find.py" afterPath="$PROJECT_DIR$/line_find.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output_images/perspective_transform.png" afterPath="$PROJECT_DIR$/output_images/perspective_transform.png" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -112,7 +111,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/CarND-Advanced-Lane-Lines" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
