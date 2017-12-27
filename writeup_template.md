@@ -102,12 +102,14 @@ I verified that my perspective transform was working as expected by drawing the 
 The code for lane-line finding can be found in [line_find.py](line_find.py)
 Since a threshold warped image is provided, we can use it to detect lane-line pixels.
 * historgram plot for warped image:
+
 ![alt text][image8]
 
 As shown above, a histogram is taken along all the columns in the lower half of the image. The most prominent peaks in this histogram will be good indicators of the X-position of the base of the lane lines.
 
 Then implement sliding windows search method to detect lane-lines. The result is like this:
 * Sliding windows search result:
+
 ![alt text][image9]
 
 
@@ -142,6 +144,7 @@ Note: the output should be in meter.
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
 Finally project the final result onto the road.
+
 ![alt text][image10]
 
 ---
