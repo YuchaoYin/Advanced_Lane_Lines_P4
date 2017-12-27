@@ -20,8 +20,8 @@ The goals / steps of this project are the following:
 [image5]: ./output_images/x_gradient.png "x_gradient"
 [image6]: ./output_images/B_binary_L_binary_combined.png "B_L_combined"
 [image7]: ./output_images/perspective_transform.png "Perspective Transform"
-[image8]: ./output_images/historgram.png "Historgram"
-[image9]: ./output_images/sliding_window.png "Sliding Windows Search"
+[image8]: ./output_images/histogram.png "Historgram"
+[image9]: ./output_images/sliding_windows.png "Sliding Windows Search"
 [image10]: ./output_images/original(undistorted)image_with_lane_area_drawn.png "original(undistorted)image_with_lane_area_drawn"
 [video1]: ./project_video.mp4 "Video"
 
