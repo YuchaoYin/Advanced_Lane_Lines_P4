@@ -13,10 +13,10 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./output_images/original_image.png "Original Chessboard"
+[image1]: ./output_images/original_image.jpg "Original Chessboard"
 [image2]: ./output_images/undistorted_image.jpg "Undistorted Image"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
+[image3]: ./output_images/test_image.png "Test Image"
+[image4]: ./output_images/undistorted_test_image.png "Undistorted Test Image"
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image6]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
@@ -41,22 +41,10 @@ Note: The code can be found in [camera_calibration.py](camera_calibration.py)
 #### 1. Provide an example of a distortion-corrected image.
 After camera calibration, some test images could be used for experiment. The following images show the original test image and the image after calibration and undistortion.
 
-<table style="width:100%">
-  <tr>
-    <th>
-      <p align="center">
-           <img src="./output_images/test_image.png" alt="Original Test Image" width="100%" height="100%">
-           <br>Original Test Image
-      </p>
-    </th>
-    <th>
-      <p align="center">
-           <img src="./output_images/undistorted_test_image.png" alt="Undistorted Test Image" width="100%" height="100%">
-           <br>Undistorted Test Image
-      </p>
-    </th>
-  </tr>
-</table>
+* original test image:
+![alt text][image3]
+* undistorted test image:
+![alt text][image4]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
