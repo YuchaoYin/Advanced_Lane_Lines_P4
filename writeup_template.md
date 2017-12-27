@@ -19,7 +19,7 @@ The goals / steps of this project are the following:
 [image4]: ./output_images/undistorted_test_image.png "Undistorted Test Image"
 [image5]: ./output_images/x_gradient.png "x_gradient"
 [image6]: ./output_images/B_binary_L_binary_combined.png "B_L_combined"
-[image6]: ./output_images/perspective_transform.png "Perspective Transform"
+[image7]: ./output_images/perspective_transform.png "Perspective Transform"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
