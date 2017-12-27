@@ -17,8 +17,9 @@ The goals / steps of this project are the following:
 [image2]: ./output_images/undistorted_image.jpg "Undistorted Image"
 [image3]: ./output_images/test_image.png "Test Image"
 [image4]: ./output_images/undistorted_test_image.png "Undistorted Test Image"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
+[image5]: ./output_images/x_gradient.png "x_gradient"
+[image6]: ./output_images/B_binary_L_binary_combined.png "B_L_combined"
+[image6]: ./output_images/perspective_transform.png "Perspective Transform"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -51,77 +52,17 @@ After camera calibration, some test images could be used for experiment. The fol
 The code can be found in [image_binarization.py](image_binarization.py)
 
 The sobel operator is applied to calculate the gradient in the x or the y direction. The following figures show the original image and after gradient taken in x direction.
-
-<table style="width:100%">
-  <tr>
-    <th>
-      <p align="center">
-           <img src="./output_images/x_gradient.png" alt="The binary image using X-gradient" width="100%" height="100%">
-           <br>The binary image using X-gradient
-      </p>
-    </th>
-  </tr>
-</table>
+* gradient taken in x direction
+![alt text][image5]
 
 However, the yellow lane cannot be detected successfully. 
-Then I tried to convert the image HLS color space.
-
-<table style="width:100%">
-  <tr>
-    <th>
-      <p align="center">
-           <img src="./output_images/H_image.png" alt="H" width="100%" height="100%">
-           <br>H
-      </p>
-    </th>
-    <th>
-      <p align="center">
-           <img src="./output_images/L_image.png" alt="L" width="100%" height="100%">
-           <br>L
-      </p>
-    </th>
-    <th>
-      <p align="center">
-           <img src="./output_images/S_image.png" alt="S" width="100%" height="100%">
-           <br>S
-      </p>
-    </th>
-  </tr>
-</table>
-
-Then a threshold is applied on the S channel. And finally combine the S channel and gradient(x direction) thresholding.
-
-
-<table style="width:100%">
-  <tr>
-    <th>
-      <p align="center">
-           <img src="./output_images/S_binary.png" alt="S_binary" width="100%" height="100%">
-           <br>S_binary
-      </p>
-    </th>
-    <th>
-      <p align="center">
-           <img src="./output_images/S_binary_gradx_combined.png" alt="Combined Result" width="100%" height="100%">
-           <br>Combined Result
-      </p>
-    </th>
-  </tr>
-</table>
+Then I tried to convert the image to lab color space. The B channel works well with the yellow lines.
+At the same time, the L channel from LUV is used to detect the white lines. Finally I combined these two methods. 
+The result is shown below:
+* B_binary and L_binary combined result:
+![alt text][image6]
 
 Optional step is to apply a morphology function to fullfill the white points, this will improve the performance.
-
-<table style="width:100%">
-  <tr>
-    <th>
-      <p align="center">
-           <img src="./output_images/S_binary_gradx_morpho_combined.png" alt="After Morphology" width="60%" height="60%">
-           <br>After Morphology
-      </p>
-    </th>
-  </tr>
-</table>
-
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
@@ -129,10 +70,10 @@ The perspective transform code can be found in [perspective_transform.py](perspe
 I chose the hardcode the source and destination points in the following manner:
 
 ```python
-    src = np.float32([[1065, 684],
-                      [255, 684],
-                      [603, 443],
-                      [678, 443]])
+    src = np.float32([[1075, 684],
+                      [200, 684],
+                      [570, 460],
+                      [710, 460]])
     dst = np.float32([[w*4/5, h],
                       [w/5, h],
                       [w/5, 0],
@@ -143,22 +84,14 @@ This resulted in the following source and destination points:
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
-| 1065, 684      | 1024, 720        | 
-| 255, 684      | 256, 720      |
-| 603, 443     | 256, 0      |
-| 678, 443      | 1024, 0        |
+| 1075, 684      | 1024, 720        | 
+| 200, 684      | 256, 720      |
+| 570, 460     | 256, 0      |
+| 710, 460      | 1024, 0        |
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
-<table style="width:100%">
-  <tr>
-    <th>
-      <p align="center">
-           <img src="./output_images/perspective_transform.png" alt="Perspective Transform" width="100%" height="100%">
-           <br>Perspective Transform
-      </p>
-    </th>
-  </tr>
-</table>
+* perspective transform result:
+![alt text][image7]
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
