@@ -20,6 +20,9 @@ The goals / steps of this project are the following:
 [image5]: ./output_images/x_gradient.png "x_gradient"
 [image6]: ./output_images/B_binary_L_binary_combined.png "B_L_combined"
 [image7]: ./output_images/perspective_transform.png "Perspective Transform"
+[image8]: ./output_images/historgram.png "Historgram"
+[image9]: ./output_images/sliding_window.png "Sliding Windows Search"
+[image10]: ./output_images/original(undistorted)image_with_lane_area_drawn.png "original(undistorted)image_with_lane_area_drawn"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -98,45 +101,22 @@ I verified that my perspective transform was working as expected by drawing the 
 
 The code for lane-line finding can be found in [line_find.py](line_find.py)
 Since a threshold warped image is provided, we can use it to detect lane-line pixels.
-<table style="width:100%">
-  <tr>
-    <th>
-      <p align="center">
-           <img src="./output_images/warped_binary.png" alt="Warped Binary Image" width="100%" height="100%">
-           <br>Warped Binary Image
-      </p>
-    </th>
-  </tr>
-  <tr>
-    <th>
-      <p align="center">
-           <img src="./output_images/histogram.png" alt="Histogram" width="100%" height="100%">
-           <br>Histogram
-      </p>
-    </th>
-  </tr>
-</table>
+* historgram plot for warped image:
+![alt text][image8]
 
 As shown above, a histogram is taken along all the columns in the lower half of the image. The most prominent peaks in this histogram will be good indicators of the X-position of the base of the lane lines.
 
 Then implement sliding windows search method to detect lane-lines. The result is like this:
-<table style="width:100%">
-  <tr>
-    <th>
-      <p align="center">
-           <img src="./output_images/sliding_windows.png" alt="Sliding Windows Search" width="100%" height="100%">
-           <br>Sliding Windows Search
-      </p>
-    </th>
-  </tr>
-</table>
+* Sliding windows search result:
+![alt text][image9]
+
 
 If we have detected the lane-lines from the previous frame, then we can skip this step and search in a margin around the previous line position. More details in [line_find.py](line_find.py)
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 I calculate the the radius of curvature and the vehicle position offset as follows:
 ```
 def curvature(line_left, line_right, frame):
-    y_eval = frame.shape[0]/2
+    y_eval = frame.shape[0]/2*ym_per_pix
     [A_left, B_left,_] = np.mean(line_left.recent_fits_meter, axis=0)
     R_left = ((1 + (2 * A_left * y_eval + B_left) ** 2) ** 1.5) / np.absolute(2 * A_left)
     [A_right, B_right,_] = np.mean(line_right.recent_fits_meter, axis=0)
@@ -162,17 +142,8 @@ Note: the output should be in meter.
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
 Finally project the final result onto the road.
+![alt text][image10]
 
-<table style="width:100%">
-  <tr>
-    <th>
-      <p align="center">
-           <img src="./output_images/original(undistorted)image_with_lane_area_drawn.png" alt="Original(undistorted) Image with Lane Area drawn" width="100%" height="100%">
-           <br>Original(undistorted) Image with Lane Area drawn
-      </p>
-    </th>
-  </tr>
-</table>
 ---
 
 ### Pipeline (video)
@@ -193,4 +164,4 @@ Here's a [link to my video result](./out_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-I realized one situation that the lane-lines cannot be detected as expected is when there are some shadows and the line is sparse at the same time. In such a case, maybe we could maintain the result from the previous frames since the lane curvature doesn't change strongly.
+The method to obtain binary image is to combine two channels, B from LAB and L from LUV. But such a method is only suitable for yellow and white lines. This may be a problem.
